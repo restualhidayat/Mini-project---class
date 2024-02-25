@@ -1,0 +1,107 @@
+Nama : Muhammad Restu Al-Hidayat
+nim : 2309116067
+
+
+
+class Tiket :
+    def __init__(self, id_tiket, maskapai,asal,tujuan,tanggal, harga):
+        self.id_tiket = id_tiket
+        self.maskapai = maskapai
+        self.asal = asal
+        self.tujuan = tujuan
+        self.tanggal = tanggal
+        self.harga = harga
+    def __str__(self):
+        return f"""
+        ID Tiket : {self.id_tiket}
+        Maskapai : {self.maskapai}
+        Asal : {self.asal}
+        Tujuan : {self.tujuan}
+        Harga RP : {self.harga}
+        """
+#database
+def database():
+  tiket_db = [
+    Tiket(1, "Garuda Indonesia", "Jakarta", "Bali", "24-03-08", 500000),
+    Tiket(2, "Lion Air", "Surabaya", "Yogyakarta", "24-03-10", 300000),
+    Tiket(3, "Citilink", "Bandung", "Lombok", "24-03-15", 400000),
+  ]
+  return tiket_db
+
+def tampil_tiket():
+  for tiket in database():
+    print(tiket)
+
+def tambah_tiket(maskapai, asal, tujuan, tanggal, harga):
+   id_tiket_baru = len(database) + 1
+   tiket_baru = Tiket(id_tiket_baru, maskapai, asal, tujuan, tanggal,harga)
+   database.append(tiket_baru)
+   
+
+def cari_tiket(id_tiket):
+  for tiket in database():
+    if tiket.id_tiket == id_tiket:
+      return tiket
+  raise ValueError(f"Tiket dengan ID {id_tiket} tidak ditemukan")
+
+def ubah_tiket(id_tiket, maskapai, asal, tujuan, tanggal, harga):
+  tiket = cari_tiket(id_tiket)
+  tiket.maskapai = maskapai
+  tiket.asal = asal
+  tiket.tujuan = tujuan
+  tiket.tanggal = tanggal
+  tiket.harga = harga
+
+def hapus_tiket(id_tiket):
+   tiket = cari_tiket(id_tiket)
+   if tiket is not None:
+      database.remove(tiket)
+
+while True:
+   print("-" * 20)
+   print("BELI TIKET MURAH DI GENS TIKET")
+   print("-" * 20)
+   print("1. Tampilkan Daftar TIket")
+   print("2. Cari Tiket")
+   print("3. Tambah TIket Baru")
+   print("4. Ubah Data Tiket")
+   print("5. Hapus Data Tiket")
+   print("0. Keluar")
+
+   pilihan = input("PILLIH MENU : ")
+
+   if pilihan == "1":
+      tampil_tiket()
+   
+   elif pilihan == "2":
+      id_tiket = int(input("Masukkan Id Tiket : "))
+      tiket = cari_tiket(id_tiket)
+      if tiket is not None:
+         print(tiket)
+      else: 
+         print(f"Tiket Dengan {id_tiket} Tidak Ditemukan")
+  
+   elif pilihan == "3":
+      Maskapai = input("Masukkan Maskapai : ")
+      asal = input("Masukkan Kota Asal : ")
+      tujuan = ("Masukkan Kota Tujuan : ")
+      tanggal = ("Masukkan Tanggak Keberanngkatan/contoh 24-03-20")
+      harga = int(input("Masukkan Harga : "))
+      tambah_tiket(Maskapai, asal, tujuan, tanggal, harga)
+      print("Tiket Berhasil Ditambahkan.")
+
+   elif pilihan == "4":
+        id_tiket = int(input("Masukkan ID Tiket: "))
+        ubah_tiket(id_tiket)
+   elif pilihan == "5":
+        id_tiket = int(input("Masukkan ID Tiket: "))
+        hapus_tiket(id_tiket)
+   elif pilihan == "0":
+        break
+   else:
+        print
+      
+      
+
+
+   
